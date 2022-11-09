@@ -17,7 +17,7 @@ export const client = new Client('ws://localhost:3015');
 bot.use(session());
 bot.use(stage.middleware());
 
-bot.start(ctx => ctx.reply("Hi", new ReplyKeyBoardBuilder().createRoomBtn().joinGameBtn().build()))
+bot.start(ctx => ctx.reply("Hi", new ReplyKeyBoardBuilder().createRoomBtn().joinGameBtn().build().oneTime()))
 bot.hears("присоединиться к игре", ctx => ctx.scene.enter(ScenesEnum.joinRoom))
 bot.hears("создать комнату", ctx => ctx.scene.enter(ScenesEnum.createRoom))
 bot.on("message", ctx => ctx.reply("Жми на кнопки"));

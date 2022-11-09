@@ -10,9 +10,9 @@ import {ChangeFictionNamePayload} from "../types/changeFictionNamePayload";
 
 export const gameRoomScene = new Scenes.BaseScene<Scenes.SceneContext>(ScenesEnum.gameRoom);
 gameRoomScene.enter(ctx => {
-    console.log("you in game room")
+    console.log("you in game room", new ReplyKeyBoardBuilder().exit().build())
     const state = ctx.scene.state as SceneState
-    if (!state.hasName) {
+    if (state.init) {
         ctx.reply(`Вы в комнанте игры, /back вернуться назад, id msg ${ctx.message!.message_id}`,
             new InlineKeyBoardBuilder().exit().build()).then(ctx => {
             getBotClientByTgId(ctx.chat!.id).gameMsgId = ctx.message_id
