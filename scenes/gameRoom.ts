@@ -43,11 +43,7 @@ gameRoomScene.action("start", ctx => {
 gameRoomScene.action("exit", ctx => {
     ctx.reply("exiting handler")
     ctx.answerCbQuery()
-    getBotClientByTgId(ctx.chat!.id).room.leave()
-    // const delTgIdIndex = botClients.findIndex((el) => el.telegramId === ctx.chat!.id)
-    // botClients.splice(delTgIdIndex, 1)
-    // console.log("clients after leave:", botClients)
-    ctx.scene.leave()
+    ctx.scene.enter(ScenesEnum.exit)
 })
 
 gameRoomScene.action(/.*/, ctx => {
@@ -63,7 +59,7 @@ gameRoomScene.hears("ввести имя", ctx => {
     ctx.scene.enter("room:changeRealName")
 })
 
-gameRoomScene.hears("выйти из комнаты", ctx => ctx.scene.leave())
+gameRoomScene.hears("выйти из комнаты", ctx => ctx.scene.enter(ScenesEnum.exit))
 
 gameRoomScene.on("text", ctx => {
     ctx.reply(`вы в игровой комнате ${ctx.message.text}`, new ReplyKeyBoardBuilder().exit().build())

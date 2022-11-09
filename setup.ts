@@ -8,9 +8,10 @@ import {gameRoomScene} from "./scenes/gameRoom";
 import {createRoomScene} from "./scenes/createRoom";
 import {ScenesEnum} from "./scenes/scenes";
 import {changeFictionName} from "./scenes/changeFictionName";
+import {exitScene} from "./scenes/exit";
 
 const stage = new Scenes.Stage<Scenes.SceneContext>(
-    [changeRealNameScene, joinRoomScene, gameRoomScene, createRoomScene, changeFictionName])
+    [changeRealNameScene, joinRoomScene, gameRoomScene, createRoomScene, changeFictionName, exitScene])
 
 export const client = new Client('ws://localhost:3015');
 

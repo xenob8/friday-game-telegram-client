@@ -1,28 +1,34 @@
-
 import {getBotIdByRoom, handleState} from "../utils";
 import {Room} from "colyseus.js";
 import {bot, botClients} from "../bot";
 import {BotClient} from "../types/botClient";
 import {GameState} from "../types/gameState";
 import {RoomStage} from "../types/roomStage";
-import {gameRoomScene} from "../scenes/gameRoom";
 
 export function addListeners(room: Room, tgId?: number | undefined) {
     console.log('joined!');
+    const obj: BotClient = {
+        telegramId: tgId ?? 777777,
+        room: room
+    }
+    botClients.push(obj)
+    console.log("join player, clients:", botClients)
+
+
     room.onMessage("*", (type, message) => {
         console.log("received message:", type, "=>", message);
     });
 
-    room.state.players.onAdd = (player:any, key:any) => {
-        if (room.sessionId === key){
-            const obj: BotClient = {
-                telegramId: tgId ?? 777777,
-                room: room
-            }
-            botClients.push(obj)
-            console.log("join player, clients:", botClients)
-        }
-    }
+    // room.state.players.onAdd = (player:any, key:any) => {
+    //     if (room.sessionId === key){
+    //         const obj: BotClient = {
+    //             telegramId: tgId ?? 777777,
+    //             room: room
+    //         }
+    //         botClients.push(obj)
+    //         console.log("join player, clients:", botClients)
+    //     }
+    // }
 
     // room.state.players.onRemove = (player, key) => {
     //     console.log(player, "has been removed at", key);
