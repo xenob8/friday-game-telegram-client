@@ -12,7 +12,8 @@ joinRoomScene.enter(ctx => ctx.reply("Введите id комнаты, /back в
 joinRoomScene.leave(ctx => ctx.reply("exiting join", startKB));
 joinRoomScene.command("back", Scenes.Stage.leave<Scenes.SceneContext>());
 joinRoomScene.on("text", ctx => {
-    client.joinById(ctx.message.text, {realName: ctx.from?.first_name ?? "No tg Name"}).then((r) => {
+    client.joinById(ctx.message.text, {realName: ctx.from?.first_name ?? "No tg Name"}).
+    then((r) => {
         const obj: BotClient = {
             telegramId: ctx.chat.id,
             room: r
@@ -22,5 +23,5 @@ joinRoomScene.on("text", ctx => {
         addListeners(r)
         ctx.scene.enter(ScenesEnum.gameRoom)
         console.log("clints after join", botClients)
-    })
+    }).catch(() => ctx.reply("невалидный айди"))
 });

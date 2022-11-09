@@ -13,7 +13,6 @@ export function handleState(room: Room) {
     const urName = json.players[room.sessionId]?.realName ?? "loading"
     delete json.players[room.sessionId]
     if (tgClient.gameMsgId) {
-
         bot.telegram.editMessageText(tg_id,
             tgClient.gameMsgId,
             undefined,
@@ -23,8 +22,6 @@ export function handleState(room: Room) {
                     .addPlayers(json.players)
                     .exit().build().reply_markup
             }).catch(console.log)
-
-
     }
 }
 
