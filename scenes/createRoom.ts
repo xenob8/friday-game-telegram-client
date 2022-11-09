@@ -2,7 +2,7 @@ import {Scenes} from "telegraf";
 import {client} from "../setup";
 import {BotClient} from "../types";
 import {botClients} from "../bot";
-import {addListeners} from "../utils";
+import {addListeners, getBotClient} from "../utils";
 
 export const createRoomScene = new Scenes.BaseScene<Scenes.SceneContext>("create:room");
 createRoomScene.enter(ctx => {
@@ -15,9 +15,14 @@ createRoomScene.enter(ctx => {
         console.log("room created", r.id)
         botClients.push(obj)
         console.log("create roomm clients:", botClients)
-        ctx.replyWithMarkdownV2(`Ваша комната создалась \n room id is \`${r.id}\``).then(() => ctx.scene.enter("game:room"))
-        addListeners(r);
+        ctx.replyWithMarkdownV2(`Ваша комната создалась \n room id is \`${r.id}\``).
+        then(() => ctx.scene.enter("game:room"))
+        // console.log("ВВодим слушателей")
+        addListeners(getBotClient(ctx.chat!.id).room);
+
         // ctx.scene.enter("game:room")
     })
+
+
 
 });

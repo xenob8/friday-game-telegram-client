@@ -2,5 +2,6 @@ export enum ScenesEnum {
     changeRealName = "room:changeRealName",
     createRoom = "create:room",
     joinRoom = "join:room",
-    gameRoom = "game:room"
+    gameRoom = "game:room",
+    changeFictionName = "room:changeFictionName",
 }

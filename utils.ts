@@ -1,6 +1,8 @@
 import {bot, botClients} from "./bot";
-import {BotClient} from "./types";
+import {BotClient, GameState} from "./types";
 import {Room} from "colyseus.js";
+import {InlineKeyBoardBuilder} from "./keyboards";
+import {client} from "./setup";
 
 export function addListeners(room: Room) {
     console.log('joined!');
@@ -16,16 +18,24 @@ export function addListeners(room: Room) {
     });
 
     room.onStateChange(function (state) {
-        const tg_id = getBotIdByRoom(room)
-        const json = state.toJSON()
-        const tgClient = getBotClient(tg_id)
-        // if (tgClient.gameMsgId) {
-        //     bot.telegram.editMessageText(tg_id, tgClient.gameMsgId, undefined, JSON.stringify(json))
-        // } else {
-        //     bot.telegram.sendMessage(tg_id, JSON.stringify(json))
-        // }
-        console.log("state change: ", json);
+      handleState(room)
     });
+}
+
+export function handleState(room: Room){
+    const state = room.state
+    const tg_id = getBotIdByRoom(room)
+    const json = state.toJSON() as GameState
+    console.log("PLAYERS FROM STATE:", json.players)
+    const tgClient = getBotClient(tg_id)
+    if (tgClient.gameMsgId) {
+        bot.telegram.editMessageText(tg_id,
+            tgClient.gameMsgId,
+            undefined,
+            `ваше имя ${json.players[json.ownerId]?.fictionName ?? "None"} `,
+            {reply_markup: new InlineKeyBoardBuilder().changeName().addPlayers(json.players).build().reply_markup})
+    }
+    console.log("state change: ", json);
 }
 
 export function getRoomByBotId(id: number): Room {

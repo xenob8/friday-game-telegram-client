@@ -7,12 +7,23 @@ export type BotClient = {
 }
 
 export type Player = {
-    realName?: string,
-    fictionName?: string
+    realName: "Real Name",
+    fictionName:"Fiction name"
+}
+
+export type ChangeFictionNamePayload = {
+    targetId : string
+    senderTgId: number
 }
 
 export type SceneState = {
     hasName? : boolean
     msgId? : number
     name? : string
+}
+
+export type GameState = {
+    ownerId: string,
+    stage?: string,
+    players: {[key: string]: Player}
 }

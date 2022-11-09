@@ -1,5 +1,6 @@
 import {Markup} from "telegraf";
 import {InlineKeyboardButton} from "typegram/markup";
+import {Player} from "./types";
 
 export class ReplyKeyBoardBuilder {
     buttons: string[] = []
@@ -24,21 +25,29 @@ export class InlineKeyBoardBuilder {
     buttons: InlineKeyboardButton[] = []
 
     exit() {
-        this.buttons.push({text:"exit", callback_data:"exit"})
+        this.buttons.push({text: "exit", callback_data: "exit"})
         return this
     }
 
-    changeName(){
-        this.buttons.push({text:"Сменить ваше имя", callback_data:"realName"})
+    changeName() {
+        this.buttons.push({text: "Сменить ваше имя", callback_data: "realName"})
         return this
     }
 
-    typeName(){
-        this.buttons.push({text:"Введите ваше имя", callback_data:"realName"})
+    addPlayers(players: { [key: string]: Player } | undefined) {
+        if (!players) return this
+        Object.entries(players).forEach(
+            ([player_id, value]) => this.buttons.push({text: `${value.realName ?? "-"}, кто: ${value.fictionName ?? "-"}`, callback_data: player_id})
+        )
         return this
     }
 
-    build(){
+    typeName() {
+        this.buttons.push({text: "Введите ваше имя", callback_data: "realName"})
+        return this
+    }
+
+    build() {
         return Markup.inlineKeyboard(this.buttons)
     }
 
