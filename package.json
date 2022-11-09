@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "run": "ts-node index.ts",
+    "run": "ts-node app.ts",
     "test": "ts-node test.ts",
     "test2": "ts-node test2.ts"
   },
