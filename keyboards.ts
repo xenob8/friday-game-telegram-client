@@ -37,7 +37,10 @@ export class InlineKeyBoardBuilder {
     addPlayers(players: { [key: string]: Player } | undefined) {
         if (!players) return this
         Object.entries(players).forEach(
-            ([player_id, value]) => this.buttons.push({text: `${value.realName ?? "-"}, кто: ${value.fictionName ?? "-"}`, callback_data: player_id})
+            ([player_id, value]) => this.buttons.push({
+                text: `${value.realName ?? "-"}, кто: ${value.fictionName ?? "-"}`,
+                callback_data: player_id
+            })
         )
         return this
     }
@@ -48,7 +51,7 @@ export class InlineKeyBoardBuilder {
     }
 
     build() {
-        return Markup.inlineKeyboard(this.buttons)
+        return Markup.inlineKeyboard(this.buttons, {columns: 1})
     }
 
 }
