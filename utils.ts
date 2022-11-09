@@ -1,7 +1,10 @@
 import {bot, botClients} from "./bot";
-import {BotClient, GameState} from "./types";
 import {Room} from "colyseus.js";
 import {InlineKeyBoardBuilder} from "./keyboards";
+import {client} from "./setup";
+import {RoomStage} from "./types/roomStage";
+import {GameState} from "./types/gameState";
+import {BotClient} from "./types/botClient";
 
 
 export function handleState(room: Room) {
@@ -20,6 +23,7 @@ export function handleState(room: Room) {
             {
                 reply_markup: new InlineKeyBoardBuilder()
                     .addPlayers(json.players)
+                    .startBtn(room.sessionId === json.ownerId && json.stage === RoomStage.Awaiting)
                     .exit().build().reply_markup
             }).catch(console.log)
     }

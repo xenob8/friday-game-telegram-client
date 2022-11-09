@@ -1,11 +1,11 @@
 import {Scenes} from "telegraf";
 import {startKB} from "../keyboards";
 import {client} from "../setup";
-import {BotClient} from "../types";
 import {botClients} from "../bot";
 
 import {ScenesEnum} from "./scenes";
 import {addListeners} from "../colyseus-client/listeners";
+import {BotClient} from "../types/botClient";
 
 export const joinRoomScene = new Scenes.BaseScene<Scenes.SceneContext>(ScenesEnum.joinRoom);
 joinRoomScene.enter(ctx => ctx.reply("Введите id комнаты, /back вернуться назад"));

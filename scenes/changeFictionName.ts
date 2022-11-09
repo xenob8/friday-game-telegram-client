@@ -1,7 +1,7 @@
 import {Scenes} from "telegraf";
 import {ScenesEnum} from "./scenes";
 import {getBotClientByTgId} from "../utils";
-import {ChangeFictionNamePayload} from "../types";
+import {ChangeFictionNamePayload} from "../types/changeFictionNamePayload";
 
 export const changeFictionName = new Scenes.BaseScene<Scenes.SceneContext>(ScenesEnum.changeFictionName);
 changeFictionName.enter(ctx => {

@@ -1,6 +1,7 @@
 
-import {handleState} from "../utils";
+import {getBotIdByRoom, handleState} from "../utils";
 import {Room} from "colyseus.js";
+import {botClients} from "../bot";
 
 export function addListeners(room: Room) {
     console.log('joined!');
@@ -9,10 +10,10 @@ export function addListeners(room: Room) {
     });
 
     room.onLeave(function () {
+        const delTgIdIndex = botClients.findIndex((el) => el.room === room)
+        botClients.splice(delTgIdIndex, 1)
+        console.log("clients after leave:", botClients)
         console.log("leave room info:, ", room.sessionId)
-        // const id = botClients.find(el => el.room.sessionId === room.sessionId)!.telegramId
-        // bot.telegram.sendMessage(id, "YOU LEAVE")
-        // console.log("LEFT ROOM", arguments);
     });
 
     room.onStateChange(function (state) {

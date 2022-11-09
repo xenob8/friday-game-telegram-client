@@ -1,9 +1,9 @@
 import {Scenes} from "telegraf";
 import {client} from "../setup";
-import {BotClient} from "../types";
 import {botClients} from "../bot";
 import {getBotClientByTgId} from "../utils";
 import {addListeners} from "../colyseus-client/listeners";
+import {BotClient} from "../types/botClient";
 
 export const createRoomScene = new Scenes.BaseScene<Scenes.SceneContext>("create:room");
 createRoomScene.enter(ctx => {

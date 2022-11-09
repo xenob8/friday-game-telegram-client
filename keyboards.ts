@@ -1,10 +1,14 @@
 import {Markup} from "telegraf";
 import {InlineKeyboardButton} from "typegram/markup";
-import {Player} from "./types";
+import {Player} from "./types/player";
 
 export class ReplyKeyBoardBuilder {
     buttons: string[] = []
 
+    exit(){
+        this.buttons.push("выйти из комнаты")
+        return this
+    }
 
     createRoomBtn() {
         this.buttons.push("создать комнату")
@@ -42,6 +46,11 @@ export class InlineKeyBoardBuilder {
                 callback_data: player_id
             })
         )
+        return this
+    }
+
+    startBtn(isCreate : boolean){
+        if (isCreate) this.buttons.push({text: "Начать игру", callback_data: "start"})
         return this
     }
 
