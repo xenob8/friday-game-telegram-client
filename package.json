@@ -1,14 +1,14 @@
 {
   "scripts": {
-    "run": "ts-node app.ts",
-    "test": "ts-node test.ts",
-    "test2": "ts-node test2.ts"
+    "dev": "ts-node app.ts",
+    "test": "ts-node test.ts"
   },
   "dependencies": {
+    "colyseus.js": "^0.14.13",
+    "dotenv": "^16.0.3",
     "telegraf": "^4.10.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4",
-    "colyseus.js": "^0.14.13",
     "ws": "^8.11.0"
   }
 }

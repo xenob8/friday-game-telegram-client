@@ -9,11 +9,12 @@ import {createRoomScene} from "./scenes/createRoom";
 import {ScenesEnum} from "./scenes/scenes";
 import {changeFictionName} from "./scenes/changeFictionName";
 import {exitScene} from "./scenes/exit";
+import 'dotenv/config'
 
 const stage = new Scenes.Stage<Scenes.SceneContext>(
     [changeRealNameScene, joinRoomScene, gameRoomScene, createRoomScene, changeFictionName, exitScene])
 
-export const client = new Client('ws://localhost:3015');
+export const client = new Client(process.env.SERVER);
 
 bot.use(session());
 bot.use(stage.middleware());
