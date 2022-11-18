@@ -21,6 +21,7 @@ gameRoomScene.enter(ctx => {
     }
 
 });
+
 gameRoomScene.leave(ctx => ctx.reply("exiting room", startKB));
 gameRoomScene.command("back", ctx => ctx.scene.enter(ScenesEnum.joinRoom));
 gameRoomScene.hears("покинуть комнату", ctx => {
@@ -44,6 +45,12 @@ gameRoomScene.action("exit", ctx => {
     ctx.reply("exiting handler")
     ctx.answerCbQuery()
     ctx.scene.enter(ScenesEnum.exit)
+})
+
+gameRoomScene.action("finish", ctx => {
+    ctx.reply("finishing game")
+    ctx.answerCbQuery()
+    getBotClientByTgId(ctx.chat!.id).room.send(MessageType.ChangeGameStage, {newStage: RoomStage.Finished})
 })
 
 gameRoomScene.action(/.*/, ctx => {

@@ -4,11 +4,13 @@ import {bot, botClients} from "../bot";
 import {BotClient} from "../types/botClient";
 import {GameState} from "../types/gameState";
 import {RoomStage} from "../types/roomStage";
+import {Scenes} from "telegraf";
+import {ScenesEnum} from "../scenes/scenes";
 
-export function addListeners(room: Room, tgId?: number | undefined) {
+export function addListeners(room: Room, ctx: Scenes.SceneContext<Scenes.SceneSessionData>) {
     console.log('joined!');
     const obj: BotClient = {
-        telegramId: tgId ?? 777777,
+        telegramId: ctx.chat!.id ?? 777777,
         room: room
     }
     botClients.push(obj)
@@ -25,11 +27,12 @@ export function addListeners(room: Room, tgId?: number | undefined) {
         console.log("leave room info:, ", room.sessionId)
     });
 
-    room.onStateChange(function (state) {
+    room.onStateChange(async function (state) {
         const tgId = getBotIdByRoom(room)
         const json = state.toJSON() as GameState
-        if (json.stage === RoomStage.Finished){
-            bot.telegram.sendMessage(tgId, "игра завершена, выйдите, чтобы начать следующую")
+        if (json.stage === RoomStage.Finished) {
+            await ctx.scene.enter(ScenesEnum.exit)
+            bot.telegram.sendMessage(tgId, "игра завершена")
         }
         handleState(room)
     });

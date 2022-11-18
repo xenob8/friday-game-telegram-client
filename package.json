@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "ts-node app.ts",
+    "dev": "nodemon app.ts",
     "test": "ts-node test.ts"
   },
   "dependencies": {

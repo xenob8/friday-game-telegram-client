@@ -14,7 +14,7 @@ joinRoomScene.on("text", async ctx => {
 
     try {
         let r = await client.joinById(ctx.message.text, {realName: ctx.from?.first_name ?? "No tg Name"})
-        addListeners(r, ctx.chat!.id)
+        addListeners(r, ctx)
         ctx.replyWithMarkdownV2(`joined to room with id is \`${r.id}\``)
         ctx.scene.enter(ScenesEnum.gameRoom, {init: true})
         console.log("clints after join", botClients)

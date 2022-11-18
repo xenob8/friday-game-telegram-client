@@ -63,6 +63,9 @@ export class InlineKeyBoardBuilder {
         return Markup.inlineKeyboard(this.buttons, {columns: 1})
     }
 
+    finishBtn(isReadyToFinish: boolean) {
+        if (isReadyToFinish) this.buttons.push({text: "Завершить игру", callback_data: "finish"})
+        return this    }
 }
 
 export const startKB = Markup.keyboard([

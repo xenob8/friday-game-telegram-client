@@ -9,7 +9,7 @@ createRoomScene.enter(async ctx => {
     ctx.reply(`привет ${name}`)
 
     let r = await client.create("game", {realName: name})
-    addListeners(r, ctx.chat!.id);
+    addListeners(r, ctx);
     await ctx.replyWithMarkdownV2(`Ваша комната создалась \n room id is \`${r.id}\``)
     ctx.scene.enter("game:room", {init: true})
 

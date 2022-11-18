@@ -24,6 +24,7 @@ export function handleState(room: Room) {
                 reply_markup: new InlineKeyBoardBuilder()
                     .addPlayers(json.players)
                     .startBtn(room.sessionId === json.ownerId && json.stage === RoomStage.Awaiting)
+                    .finishBtn(room.sessionId === json.ownerId && json.stage === RoomStage.Guessing)
                     .exit().build().reply_markup
             }).catch(console.log)
     }
